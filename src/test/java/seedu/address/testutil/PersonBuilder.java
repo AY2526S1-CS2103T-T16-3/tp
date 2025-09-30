@@ -27,8 +27,8 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    private Set<Tag> tags;
     private Remark remark;
+    private Set<Tag> tags;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.

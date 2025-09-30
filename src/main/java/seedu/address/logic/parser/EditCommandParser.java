@@ -21,8 +21,10 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new {@link EditCommand}.
+ * */
 public class EditCommandParser implements Parser<EditCommand> {
-
     @Override
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);

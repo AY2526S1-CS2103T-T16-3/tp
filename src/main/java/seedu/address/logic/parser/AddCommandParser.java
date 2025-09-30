@@ -22,8 +22,10 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new {@link AddCommand} object.
+ * */
 public class AddCommandParser implements Parser<AddCommand> {
-
     @Override
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(

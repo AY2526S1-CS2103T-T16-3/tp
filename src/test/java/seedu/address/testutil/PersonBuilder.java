@@ -27,8 +27,8 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Address address;
-    public Remark remark;
     private Set<Tag> tags;
+    private Remark remark;
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -105,5 +105,4 @@ public class PersonBuilder {
     public Person build() {
         return new Person(name, phone, email, address, remark, tags);
     }
-
 }

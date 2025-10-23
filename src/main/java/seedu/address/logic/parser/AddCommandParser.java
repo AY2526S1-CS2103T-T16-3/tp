@@ -62,7 +62,6 @@ public class AddCommandParser implements Parser<AddCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         WeddingDate weddingDate = ParserUtil.parseWeddingDate(argMultimap.getValue(PREFIX_WEDDING_DATE).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         PersonType type = PersonType.CLIENT;
 
@@ -75,6 +74,12 @@ public class AddCommandParser implements Parser<AddCommand> {
                 throw new ParseException("Invalid type. Please choose either 'client' or 'vendor'.");
             }
             type = PersonType.parse(normalised);
+        }
+
+        // Tags are only allowed for vendors, not for clients
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        if (type == PersonType.CLIENT && !tagList.isEmpty()) {
+            throw new ParseException("Tags are not allowed for clients. Only vendors can have tags/categories.");
         }
 
         // Parse price if present

@@ -70,19 +70,20 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).withType(PersonType.CLIENT).build();
+        // Clients cannot have tags, so test with vendor instead
+        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).withType(PersonType.VENDOR).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + WEDDING_DATE_DESC_BOB + TYPE_DESC_CLIENT + TAG_DESC_FRIEND,
+                + ADDRESS_DESC_BOB + WEDDING_DATE_DESC_BOB + TYPE_DESC_VENDOR + TAG_DESC_FRIEND,
                 new AddCommand(expectedPerson));
 
-        // multiple tags - all accepted
+        // multiple tags - all accepted (for vendors)
         Person expectedPersonMultipleTags = new PersonBuilder(BOB)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).withType(PersonType.CLIENT).build();
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).withType(PersonType.VENDOR).build();
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + WEDDING_DATE_DESC_BOB
-                        + TYPE_DESC_CLIENT + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                        + TYPE_DESC_VENDOR + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 new AddCommand(expectedPersonMultipleTags));
     }
 
@@ -249,11 +250,12 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_typeClient_success() {
-        Person expected = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).withType(PersonType.CLIENT).build();
+        // Clients cannot have tags - need to clear tags from BOB template
+        Person expected = new PersonBuilder(BOB).withType(PersonType.CLIENT).withTags().build();
 
         assertParseSuccess(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                        + WEDDING_DATE_DESC_BOB + TAG_DESC_FRIEND + TYPE_DESC_CLIENT,
+                        + WEDDING_DATE_DESC_BOB + TYPE_DESC_CLIENT,
                 new AddCommand(expected));
     }
 
@@ -319,8 +321,17 @@ public class AddCommandParserTest {
         // Price is only applicable for vendors
         assertParseFailure(parser,
                 NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                        + WEDDING_DATE_DESC_BOB + TYPE_DESC_CLIENT + PRICE_DESC_BOB + TAG_DESC_FRIEND,
+                        + WEDDING_DATE_DESC_BOB + TYPE_DESC_CLIENT + PRICE_DESC_BOB,
                 "Price is only applicable for vendors.");
+    }
+
+    @Test
+    public void parse_clientWithTags_failure() {
+        // Tags are not allowed for clients
+        assertParseFailure(parser,
+                NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
+                        + WEDDING_DATE_DESC_BOB + TYPE_DESC_CLIENT + TAG_DESC_FRIEND,
+                "Tags are not allowed for clients. Only vendors can have tags/categories.");
     }
 
     @Test
@@ -333,29 +344,31 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_clientWithBudget_success() {
+        // Clients cannot have tags - need to clear tags from AMY template
         Person expected = new PersonBuilder(AMY)
-                .withTags(VALID_TAG_FRIEND)
                 .withType(PersonType.CLIENT)
+                .withTags()
                 .withBudget("5000-10000")
                 .build();
 
         assertParseSuccess(parser,
                 NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                        + WEDDING_DATE_DESC_AMY + TYPE_DESC_CLIENT + BUDGET_DESC_AMY + TAG_DESC_FRIEND,
+                        + WEDDING_DATE_DESC_AMY + TYPE_DESC_CLIENT + BUDGET_DESC_AMY,
                 new AddCommand(expected));
     }
 
     @Test
     public void parse_clientWithoutBudget_success() {
+        // Clients cannot have tags - need to clear tags from AMY template
         Person expected = new PersonBuilder(AMY)
-                .withTags(VALID_TAG_FRIEND)
                 .withType(PersonType.CLIENT)
+                .withTags()
                 .withoutBudget()
                 .build();
 
         assertParseSuccess(parser,
                 NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                        + WEDDING_DATE_DESC_AMY + TYPE_DESC_CLIENT + TAG_DESC_FRIEND,
+                        + WEDDING_DATE_DESC_AMY + TYPE_DESC_CLIENT,
                 new AddCommand(expected));
     }
 
@@ -372,7 +385,7 @@ public class AddCommandParserTest {
     public void parse_invalidBudget_failure() {
         assertParseFailure(parser,
                 NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                        + WEDDING_DATE_DESC_AMY + TYPE_DESC_CLIENT + INVALID_BUDGET_DESC + TAG_DESC_FRIEND,
+                        + WEDDING_DATE_DESC_AMY + TYPE_DESC_CLIENT + INVALID_BUDGET_DESC,
                 Budget.MESSAGE_CONSTRAINTS);
     }
 

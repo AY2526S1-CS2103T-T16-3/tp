@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonType;
 
 /**
  * A UI component that displays the details of a selected {@link Person}.
@@ -117,7 +118,8 @@ public class PersonDetailsPanel extends UiPart<Region> {
             budget.setManaged(false);
         }
 
-        if (person.getTags().isEmpty()) {
+        // Only display tags for vendors, not for clients
+        if (person.getType() == PersonType.CLIENT || person.getTags().isEmpty()) {
             tagsLine.setText("");
             tagsLine.setVisible(false);
             tagsLine.setManaged(false); // remove its layout space

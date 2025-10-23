@@ -6,7 +6,7 @@
     "email" : "alice@example.com",
     "address" : "123, Jurong West Ave 6, #08-111",
     "weddingDate" : "2024-01-01",
-    "type": "client",
+    "type": "vendor",
     "tags" : [ "friends" ]
   }, {
     "name" : "Benson Meier",
@@ -14,7 +14,7 @@
     "email" : "johnd@example.com",
     "address" : "311, Clementi Ave 2, #02-25",
     "weddingDate" : "2024-02-02",
-    "type": "client",
+    "type": "vendor",
     "tags" : [ "owesMoney", "friends" ]
   }, {
     "name" : "Carl Kurz",
@@ -30,7 +30,7 @@
     "email" : "cornelia@example.com",
     "address" : "10th street",
     "weddingDate" : "2024-04-04",
-    "type": "client",
+    "type": "vendor",
     "tags" : [ "friends" ]
   }, {
     "name": "Elle Meyer",

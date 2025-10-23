@@ -28,16 +28,20 @@ public class TypicalPersons {
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
             .withPhone("94351253").withWeddingDate("01/01/2024")
+            .withType(seedu.address.model.person.PersonType.VENDOR)
             .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432").withWeddingDate("02/02/2024")
+            .withType(seedu.address.model.person.PersonType.VENDOR)
             .withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street").withWeddingDate("03/03/2024").build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("10th street")
-            .withWeddingDate("04/04/2024").withTags("friends").build();
+            .withWeddingDate("04/04/2024")
+            .withType(seedu.address.model.person.PersonType.VENDOR)
+            .withTags("friends").build();
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("94822240")
             .withEmail("werner@example.com").withAddress("michegan ave").withWeddingDate("05/05/2024").build();
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("94824270")
@@ -54,9 +58,11 @@ public class TypicalPersons {
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withWeddingDate(VALID_WEDDING_DATE_AMY)
+            .withType(seedu.address.model.person.PersonType.VENDOR)
             .withTags(VALID_TAG_FRIEND).build();
     public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withWeddingDate(VALID_WEDDING_DATE_BOB)
+            .withType(seedu.address.model.person.PersonType.VENDOR)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER

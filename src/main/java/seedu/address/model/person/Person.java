@@ -86,12 +86,10 @@ public class Person {
     public Person(Name name, Phone phone, Email email, Address address, WeddingDate weddingDate, PersonType type,
                   Set<Tag> tags, Set<Person> linkedPersons, Price price, Optional<Partner> partner) {
         requireAllNonNull(name, phone, email, address, weddingDate, tags, linkedPersons);
-        
         // Validate that clients don't have tags
         if (type == PersonType.CLIENT && !tags.isEmpty()) {
             throw new IllegalArgumentException("Tags are not allowed for clients. Only vendors can have tags/categories.");
         }
-        
         this.name = name;
         this.phone = phone;
         this.email = email;

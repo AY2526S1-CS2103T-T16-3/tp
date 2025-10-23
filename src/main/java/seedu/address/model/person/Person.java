@@ -88,7 +88,7 @@ public class Person {
         requireAllNonNull(name, phone, email, address, weddingDate, tags, linkedPersons);
         // Validate that clients don't have tags
         if (type == PersonType.CLIENT && !tags.isEmpty()) {
-            throw new IllegalArgumentException("Tags are not allowed for clients." + 
+            throw new IllegalArgumentException("Tags are not allowed for clients." +
                                                "Only vendors can have tags/categories.");
         }
         this.name = name;
